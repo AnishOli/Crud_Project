@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+<!-- for title  -->
+{% block title %}
+    Blog
+{% endblock title %}
+<!-- for blog content -->
+{% block content %}
+<h1 class="text-center alert alert-secondary">This is blog page</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <div class="card">
+        <div class="card-header">Featured</div>
+        <div class="card-body">
+          <h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">
+            With supporting text below as a natural lead-in to additional
+            content.
+          </p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+        <div class="col-6">
+            <div class="card">
+  <div class="card-header">
+    Featured
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Special title treatment</h5>
+    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+        </div>
+  </div>
+</div>
+{% endblock content %}
