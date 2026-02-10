@@ -4,6 +4,7 @@ from .models import FormStudent
 from django.contrib import messages
 
 from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
 # Create your views here.
 def home(request):
@@ -28,6 +29,12 @@ def form(request):
             user= FormStudent(name= name, age= age, email= email,address=address,message=message)
             user.full_clean()
             user.save()
+
+            subject = "Form Confirmation : Django Form"
+            message= render_to_string(''),
+            from_email,
+            recipient_list,
+
             messages.success(request, 'Form submitted successfully !!!')
             return redirect('form')
         except Exception as e:
