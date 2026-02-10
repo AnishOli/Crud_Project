@@ -35,6 +35,7 @@ class FormStudent(models.Model):
     email = models.EmailField(unique=True)
     address= models.TextField()
     message= models.TextField()
+    is_delete=models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

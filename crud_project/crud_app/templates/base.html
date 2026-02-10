@@ -53,6 +53,12 @@
           <li class="nav-item">
             <a class="nav-link {% if request.path == '/blog/' %}active{% endif %}" href="{% url 'blog' %}">Blogs</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == '/recycle/' %}active{% endif %}" href="{% url 'recycle' %}"><i class="fa-solid fa-recycle"></i>Recycle</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == '/counter/' %}active{% endif %}" href="{% url 'counter' %}">Counter</a>
+          </li>
         </ul>
         <form method="GET" class="d-flex" role="search">
           <input class="form-control me-2" name="trysearch" type="search" placeholder="Search" aria-label="Search" />

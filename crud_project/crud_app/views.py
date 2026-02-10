@@ -3,13 +3,15 @@ from django.shortcuts import render,redirect
 from .models import FormStudent
 from django.contrib import messages
 
+from django.core.mail import send_mail
+
 # Create your views here.
 def home(request):
     searched= request.GET.get("trysearch")
     if searched:
         data=FormStudent.objects.filter(name__icontains=searched)
     else:
-        data= FormStudent.objects.all()
+        data= FormStudent.objects.filter(is_delete=False)
     return render(request,'crud_app/home.html',{'data':data})
 
 
@@ -43,5 +45,47 @@ def blog(request):
 
 def delete_data(request,id):
     data= FormStudent.objects.get(id=id)
-    data.delete()
+    data.is_delete= True
+    data.save()
     return redirect('home')
+
+
+def update_data(request,id):
+    data= FormStudent.objects.get(id= id)
+
+    if request.method == "POST":
+        data= FormStudent.objects.get(id=id)
+        data.name= request.POST.get('name')
+        data.age= request.POST.get('age')
+        data.email= request.POST.get('email')
+        data.address= request.POST.get('address')
+        data.message= request.POST.get('message')
+        data.save()
+        return redirect('home')
+
+    
+    return render(request, 'crud_app/edit.html',{'data':data})
+
+
+
+def recycle(request):
+    data= FormStudent.objects.filter(is_delete= True)
+    return render(request,'crud_app/recycle.html',{'data':data})
+
+
+def restore_data(request,id):
+    data= FormStudent.objects.get(id=id)
+    data.is_delete=False
+    data.save()
+    return redirect('home')
+
+
+def counter(request):
+    total = 0  # define default
+
+    if request.method == "POST":
+        message = request.POST.get('message', '').strip()
+        if message:
+            total = len(message.split())
+
+    return render(request, 'crud_app/counter.html', {'total': total})
