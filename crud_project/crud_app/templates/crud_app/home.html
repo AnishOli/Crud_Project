@@ -20,6 +20,8 @@ Home
             <th scope="col">Email Address</th>
             <th scope="col">Address</th>
             <th scope="col">Message</th>
+            <th scope="col">Image</th>
+            <th scope="col">Video</th>
             <th scope="col">Action</th>
 
           </tr>
@@ -34,19 +36,38 @@ Home
             <td>{{i.email}}</td>
             <td>{{i.address}}</td>
             <td>{{i.message}}</td>
-            
+            <td>
+
+
+              {% if i.image %}
+              <img src="{{i.image.url}}" height="100px" alt="">
+
+              {% endif %}
+
+            </td>
+            <td>
+              
+              {% if i.video %}
+                 
+              <video src="{{i.video.url}}" controls height="100px" width="200px"></video>
+                
+              {% endif %}
+             
+            </td>
             <td>
               <div class="d-flex gap-2">
-                <a href="{% url 'update' i.id %}" class="btn btn-sm btn-outline-success d-inline-flex align-items-center">
+                <a href="{% url 'update' i.id %}"
+                  class="btn btn-sm btn-outline-success d-inline-flex align-items-center">
                   <i class="fa-regular fa-pen-to-square"></i> Edit
                 </a>
 
-                <a href="{% url 'delete' i.id %}" class="btn btn-sm btn-outline-danger d-inline-flex align-items-center">
+                <a href="{% url 'delete' i.id %}"
+                  class="btn btn-sm btn-outline-danger d-inline-flex align-items-center">
                   <i class="fa-solid fa-trash"></i> Delete
                 </a>
               </div>
             </td>
-          </tr> 
+          </tr>
 
           {% endfor %}
 

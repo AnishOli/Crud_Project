@@ -35,7 +35,9 @@ class FormStudent(models.Model):
     email = models.EmailField(unique=True)
     address= models.TextField()
     message= models.TextField()
-    is_delete=models.BooleanField(default=False)
+    image= models.ImageField(upload_to='image',null = True)
+    video= models.FileField(upload_to='video',null = True)
+    is_delete=models.BooleanField(default=False )
 
     def __str__(self):
         return self.name

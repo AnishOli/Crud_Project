@@ -3,8 +3,9 @@ from django.shortcuts import render,redirect
 from .models import FormStudent
 from django.contrib import messages
 
-from django.core.mail import send_mail
+from django.core.mail import send_mail,EmailMessage
 from django.template.loader import render_to_string
+from datetime import datetime
 
 # Create your views here.
 def home(request):
@@ -18,24 +19,31 @@ def home(request):
 
 
 def form(request):
-    if request.method=='POST':
+    if request.method=='POST' and request.FILES:
         name= request.POST.get('name')
         age= request.POST.get('age')
         email = request.POST.get('email')
         address = request.POST.get('address')
         message= request.POST.get('message')
+        image= request.FILES.get('image')
+        video= request.FILES.get('video')
 
         try:
-            user= FormStudent(name= name, age= age, email= email,address=address,message=message)
+            user= FormStudent(name= name, age= age, email= email,address=address,message=message,image= image,video= video)
             user.full_clean()
             user.save()
 
             subject = "Form Confirmation : Django Form"
-            message= render_to_string(''),
-            from_email,
-            recipient_list,
+            message= render_to_string('crud_app/mail_msg.html',{'name':name,'date':datetime.now()})
+            from_email='anish0li751106@gmail.com'
+            recipient_list=[email,'anisholi751106@gmail.com']
 
-            messages.success(request, 'Form submitted successfully !!!')
+            # send_mail(subject=subject, message=message,from_email=from_email,recipient_list=recipient_list,fail_silently=False)
+            mail_msg= EmailMessage(subject=subject,from_email=from_email,to=recipient_list,body=message)
+            mail_msg.attach_file('crud_app/static/pdf/English.pdf')
+            mail_msg.send(fail_silently=False)
+
+            messages.success(request, 'Form submitted successfully !!! Check your mail')
             return redirect('form')
         except Exception as e:
             messages.error(request, e)
